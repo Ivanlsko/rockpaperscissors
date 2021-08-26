@@ -1,12 +1,7 @@
-window.addEventListener("DOMContentLoaded", start);
 let playerSign = "unknown";
 let computerSign = "unknown";
 let signs = ["rock", "paper", "scissors"];
 let randomNum = 0;
-
-function start() {}
-
-function getPlayerChoice() {}
 
 function getComputerSign() {
   randomNum = Math.floor(Math.random() * 2);
@@ -36,6 +31,7 @@ button.forEach((e) => {
   e.addEventListener("click", showAnimation);
 });
 function showAnimation() {
+  clearScreen();
   getComputerSign();
   // do the actual animation
   document.querySelectorAll(".player").forEach((e) => {
@@ -43,9 +39,10 @@ function showAnimation() {
     e.addEventListener("animationend", () => {
       console.log("animationended");
       e.classList.remove("shake");
+      determineWinner();
     });
   });
-  // do the actual animation
+
   console.log(this.classList);
   if (this.classList == "paper") {
     console.log("you pressed paper");
@@ -70,49 +67,75 @@ function showAnimation() {
     document.querySelector("#player1").classList.add("scissors");
     playerSign = "scissors";
   }
-  determineWinner();
 }
 
 function determineWinner() {
   if (computerSign == "rock" && playerSign == "rock") {
     console.log("we have a draw");
+    showDraw();
   }
 
   if (computerSign == "rock" && playerSign == "paper") {
     console.log("player wins");
+    showWin();
   }
 
   if (computerSign == "rock" && playerSign == "scissors") {
     console.log("player lose");
+    showLose();
   }
 
   if (computerSign == "paper" && playerSign == "scissors") {
     console.log("player wins");
+    showWin();
   }
 
   if (computerSign == "paper" && playerSign == "rock") {
     console.log("player lose");
+    showLose();
   }
 
   if (computerSign == "paper" && playerSign == "paper") {
     console.log("we have a draw");
+    showDraw();
   }
 
   if (computerSign == "scissors" && playerSign == "rock") {
     console.log("player wins");
+    showWin();
   }
 
   if (computerSign == "scissors" && playerSign == "paper") {
     console.log("player lose");
+    showLose();
   }
 
   if (computerSign == "scissors" && playerSign == "scissors") {
     console.log("we have a draw");
+    showDraw();
   }
 }
 
-function showWin() {}
+function showWin() {
+  document.querySelector("#lose").classList.add("hidden");
+  document.querySelector("#draw").classList.add("hidden");
+  document.querySelector("#win").classList.remove("hidden");
+}
 
-function showLose() {}
+function showLose() {
+  document.querySelector("#win").classList.add("hidden");
+  document.querySelector("#draw").classList.add("hidden");
+  document.querySelector("#lose").classList.remove("hidden");
+}
 
-function showDraw() {}
+function showDraw() {
+  document.querySelector("#lose").classList.add("hidden");
+  document.querySelector("#win").classList.add("hidden");
+  document.querySelector("#draw").classList.remove("hidden");
+}
+
+function clearScreen() {
+  document.querySelector("#lose").classList.add("hidden");
+  document.querySelector("#win").classList.add("hidden");
+  document.querySelector("#draw").classList.add("hidden");
+}
